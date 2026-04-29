@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Transportation Safety & Ergonomics Toolkit</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bus-yellow: #F9C011;
+    --bus-yellow-dark: #E6AD00;
+    --navy: #0D1F3C;
+    --navy-mid: #1A3560;
+    --steel: #2C4A7C;
+    --light-gray: #F4F4F0;
+    --mid-gray: #E8E5DC;
+    --text-dark: #1A1A1A;
+    --text-mid: #3A3A3A;
+    --accent-red: #C8332A;
+    --white: #FFFFFF;
+    --shadow: 0 4px 24px rgba(13,31,60,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light-gray);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 60px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-bus-icon {
+    font-size: 1.6rem;
+  }
+
+  .nav-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    color: var(--bus-yellow);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    list-style: none;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 0 1rem;
+    height: 60px;
+    line-height: 60px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+
+  .nav-links a:hover {
+    color: var(--bus-yellow);
+    border-bottom-color: var(--bus-yellow);
+    background: rgba(249,192,17,0.08);
+  }
+
+  /* ── HERO ── */
+  #home {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-stripes {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 60px,
+      rgba(249,192,17,0.03) 60px,
+      rgba(249,192,17,0.03) 62px
+    );
+    pointer-events: none;
+  }
+
+  .hero-yellow-bar {
+    background: var(--bus-yellow);
+    height: 8px;
+    width: 100%;
+  }
+
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 2rem 3rem;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--bus-yellow);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: 2px;
+    color: var(--white);
+    max-width: 900px;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  .hero-title span {
+    color: var(--bus-yellow);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.5s;
+  }
+
+  .hero-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    max-width: 900px;
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.65s;
+  }
+
+  .hero-card {
+    background: rgba(13,31,60,0.6);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: block;
+  }
+
+  .hero-card:hover {
+    background: rgba(249,192,17,0.12);
+  }
+
+  .hero-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .hero-card-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero-card:hover .hero-card-label { color: var(--bus-yellow); }
+
+  .hero-contact {
+    margin-top: 2.5rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .hero-contact a { color: var(--bus-yellow); text-decoration: none; }
+  .hero-contact a:hover { text-decoration: underline; }
+
+  /* ── SECTION SHARED ── */
+  section {
+    padding: 5rem 2rem;
+  }
+
+  .section-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--bus-yellow-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+
+  .section-title.light { color: var(--white); }
+
+  .section-subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  .divider {
+    width: 60px;
+    height: 4px;
+    background: var(--bus-yellow);
+    margin: 1rem 0 2rem;
+  }
+
+  /* ── BLOG ── */
+  #blog {
+    background: var(--white);
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .blog-tag {
+    background: var(--bus-yellow);
+    color: var(--navy);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .blog-author {
+    font-size: 0.85rem;
+    color: #777;
+    font-style: italic;
+  }
+
+  .blog-body {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text-mid);
+    max-width: 720px;
+  }
+
+  .blog-body p { margin-bottom: 1.4rem; }
+
+  .blog-body h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: var(--navy);
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  .blog-body ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .blog-body li { margin-bottom: 0.4rem; }
+
+  .blog-table-wrap { overflow-x: auto; margin: 2rem 0; }
+
+  .blog-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  .blog-table th {
+    background: var(--navy);
+    color: var(--bus-yellow);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .blog-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--mid-gray);
+    vertical-align: top;
+    color: var(--text-mid);
+  }
+
+  .blog-table tr:nth-child(even) td { background: var(--light-gray); }
+
+  .blog-cta {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--light-gray);
+    border-left: 4px solid var(--bus-yellow);
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--navy);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .references-toggle {
+    margin-top: 2.5rem;
+  }
+
+  .ref-btn {
+    background: none;
+    border: 2px solid var(--navy);
+    color: var(--navy);
+    padding: 0.6rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+  }
+
+  .ref-btn:hover { background: var(--navy); color: var(--white); }
+
+  .ref-list {
+    display: none;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .ref-list.open { display: block; }
+
+  .ref-list p { margin-bottom: 0.6rem; padding-left: 1.5rem; text-indent: -1.5rem; }
+
+  /* ── INDUSTRY FACTS ── */
+  #industry {
+    background: var(--navy);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #industry::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,192,17,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .industry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 700px) {
+    .industry-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  .industry-intro {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 2.5rem;
+    max-width: 620px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(249,192,17,0.2);
+    border-radius: 4px;
+    padding: 1.75rem;
+    transition: all 0.25s;
+  }
+
+  .stat-card:hover {
+    background: rgba(249,192,17,0.08);
+    border-color: var(--bus-yellow);
+    transform: translateY(-2px);
+  }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--bus-yellow);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  /* ── HAZARDS ── */
+  #hazards {
+    background: var(--light-gray);
+  }
+
+  .hazard-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid var(--mid-gray);
+  }
+
+  .hazard-tab {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #777;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .hazard-tab.active {
+    color: var(--navy);
+    border-bottom-color: var(--bus-yellow);
+  }
+
+  .hazard-tab:hover { color: var(--navy); }
+
+  .hazard-panel { display: none; }
+  .hazard-panel.active { display: block; }
+
+  .hazard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .hazard-card {
+    background: var(--white);
+    border-radius: 4px;
+    padding: 1.75rem;
+    border-top: 4px solid var(--bus-yellow);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+  }
+
+  .hazard-card:hover { transform: translateY(-3px); }
+  .hazard-card.red-top { border-top-color: var(--accent-red); }
+  .hazard-card.navy-top { border-top-color: var(--navy); }
+
+  .hazard-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+
+  .hazard-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .hazard-card-text {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* ── TOOLKIT ── */
+  #toolkit {
+    background: var(--white);
+  }
+
+  .toolkit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .toolkit-item {
+    border: 2px solid var(--mid-gray);
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.2s;
+    background: var(--light-gray);
+  }
+
+  .toolkit-item:hover {
+    border-color: var(--bus-yellow);
+    background: var(--white);
+    box-shadow: var(--shadow);
+  }
+
+  .toolkit-item-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .toolkit-emoji { font-size: 2.2rem; flex-shrink: 0; }
+
+  .toolkit-item-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+
+  .toolkit-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--bus-yellow-dark);
+  }
+
+  .toolkit-desc {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .toolkit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .toolkit-btn:hover { background: var(--bus-yellow); color: var(--navy); }
+
+  /* LinkedIn preview */
+  .linkedin-preview {
+    background: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #333;
+    display: none;
+  }
+
+  .linkedin-preview.open { display: block; }
+
+  .linkedin-preview-header {
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #0a66c2;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .linkedin-preview p { margin-bottom: 0.6rem; }
+  .linkedin-hashtags { color: #0a66c2; font-size: 0.82rem; margin-top: 0.5rem; }
+
+  /* Toolbox talk preview */
+  .toolbox-preview {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    display: none;
+  }
+
+  .toolbox-preview.open { display: block; }
+
+  .toolbox-preview h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: var(--bus-yellow);
+    margin-bottom: 0.5rem;
+  }
+
+  .toolbox-preview ul { padding-left: 1.2rem; color: rgba(255,255,255,0.8); }
+  .toolbox-preview li { margin-bottom: 0.3rem; }
+
+  /* Factsheet preview */
+  .factsheet-preview {
+    background: #fffbe6;
+    border: 1px solid var(--bus-yellow);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--navy);
+    display: none;
+  }
+
+  .factsheet-preview.open { display: block; }
+
+  .factsheet-preview h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── REFERENCES ── */
+  #references {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .ref-full-list {
+    font-size: 0.88rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.7);
+    columns: 2;
+    column-gap: 3rem;
+  }
+
+  @media (max-width: 700px) { .ref-full-list { columns: 1; } }
+
+  .ref-full-list p {
+    break-inside: avoid;
+    margin-bottom: 0.9rem;
+    padding-left: 1.5rem;
+    text-indent: -1.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080F1E;
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+  }
+
+  footer span { color: var(--bus-yellow); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── YELLOW ACCENT BAR ── */
+  .yellow-accent-bar {
+    height: 6px;
+    background: var(--bus-yellow);
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <span class="nav-bus-icon">🚌</span>
+    <div class="nav-title">Lucas Medsker · School Transportation Safety</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#industry">Industry Facts</a></li>
+    <li><a href="#hazards">Health Hazards</a></li>
+    <li><a href="#toolkit">Toolkit Resources</a></li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+
+<!-- HERO / HOME -->
+<section id="home" style="padding:0;">
+  <div class="hero-yellow-bar"></div>
+  <div class="hero-stripes"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Occupational Safety &amp; Ergonomics Toolkit</p>
+    <h1 class="hero-title">School<span>Transportation</span></h1>
+    <p class="hero-subtitle">Protecting the drivers, mechanics, and staff who keep students moving safely every day.</p>
+
+    <div class="hero-cards">
+      <a href="#blog" class="hero-card">
+        <span class="hero-card-icon">📝</span>
+        <span class="hero-card-label">Read the Blog</span>
+      </a>
+      <a href="#industry" class="hero-card">
+        <span class="hero-card-icon">📊</span>
+        <span class="hero-card-label">Industry Facts</span>
+      </a>
+      <a href="#hazards" class="hero-card">
+        <span class="hero-card-icon">⚠️</span>
+        <span class="hero-card-label">Health Hazards</span>
+      </a>
+      <a href="#toolkit" class="hero-card">
+        <span class="hero-card-icon">🧰</span>
+        <span class="hero-card-label">Toolkit Resources</span>
+      </a>
+      <a href="#references" class="hero-card">
+        <span class="hero-card-icon">📚</span>
+        <span class="hero-card-label">References</span>
+      </a>
+    </div>
+
+    <p class="hero-contact">
+      This website provides an overview and practical tools to help protect the health and safety of school transportation workers, including bus drivers, mechanics, and support staff.<br><br>
+      Questions? Get in touch at: <a href="mailto:lucas.medsker@cuanschutz.edu">lucas.medsker@cuanschutz.edu</a>
+    </p>
+  </div>
+  <div class="hero-yellow-bar"></div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="section-inner">
+    <p class="section-label">Blog</p>
+    <h2 class="section-title">Hidden Risks in School Transportation</h2>
+    <div class="divider"></div>
+
+    <div class="blog-meta">
+      <span class="blog-tag">Feature Article</span>
+      <span class="blog-author">by Lucas Medsker</span>
+    </div>
+
+    <div class="blog-body">
+      <p><em>Turning Everyday Tasks into Safer Work</em></p>
+
+      <p>School transportation is often seen as routine work. Buses arrive, students are picked up, routes are completed, and the day moves on. From an occupational health and safety perspective, though, school transportation is far more complex. Behind a system designed to move students safely is a workforce that manages vehicle operations, maintenance demands, weather exposure, student-related distractions, and repetitive physical strain every day.</p>
+
+      <p>That complexity became clear during a site visit to a school district transportation department responsible for a fleet of about 250 buses and a workforce of approximately 78 employees. The department included drivers, mechanics, dispatch staff, route planners, and supervisors. While the work appeared organized and safety conscious, the visit also showed how common tasks can create meaningful ergonomic and safety risks if they are not actively assessed and controlled.</p>
+
+      <p>National data supports that concern. In the school and employee bus transportation industry, the total recordable injury and illness rate was 3.3 cases per 100 full-time workers, compared with 2.6 across all industries (BLS, 2024a). Among school bus drivers, musculoskeletal disorders (MSDs), including sprains, strains, and tears, accounted for 600 of 1,660 cases involving days away from work, making MSDs the largest injury category in this occupation (BLS, 2024b). For OHS professionals and safety committees, this matters because it suggests the most important risks in this industry are not dramatic events—they are also built into the routine design of the work.</p>
+
+      <h3>A Quick Look at the Industry Context</h3>
+
+      <p>School transportation is a large workforce. In 2023, approximately 371,530 school bus drivers were employed in the United States, with a mean annual wage of $45,210 and a mean hourly wage of $21.74 (BLS, 2023). The workforce also includes mechanics, dispatchers, route planners, and supervisors whose work supports daily operations.</p>
+
+      <p>The site visit reinforced that school transportation should not be viewed as "just driving." Drivers conducted pre-trip inspections, monitored student behavior, drove regular routes and activity trips, and worked around buses in winter conditions. Mechanics repaired buses in the shop and sometimes responded to roadside service needs. Dispatch and administrative staff coordinated routes and communications under pressure. Each of those roles had different exposures, but together they created a layered risk profile.</p>
+
+      <p><strong>Table 1. National data and site observations relevant to school safety</strong></p>
+
+      <div class="blog-table-wrap">
+        <table class="blog-table">
+          <thead>
+            <tr>
+              <th>Topic</th>
+              <th>National / Research Finding</th>
+              <th>Site Visit Observation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Injury rate</td>
+              <td>NAICS 4854: 3.3 cases per 100 workers; all industries: 2.6 (BLS, 2024a)</td>
+              <td>Daily work involved driving, inspections, maintenance, dispatch, and winter outdoor exposure</td>
+            </tr>
+            <tr>
+              <td>Leading injury type</td>
+              <td>MSDs were 600 of 1,660 days-away-from-work cases among school bus drivers (BLS, 2024b)</td>
+              <td>Drivers reported hip and back discomfort related to prolonged sitting</td>
+            </tr>
+            <tr>
+              <td>Fatal injury context</td>
+              <td>Transportation incidents accounted for 36 of 109 occupational fatalities in Colorado in 2024 (BLS, 2024d)</td>
+              <td>Minor vehicle incidents and driver distraction were discussed during the visit</td>
+            </tr>
+            <tr>
+              <td>Maintenance risk</td>
+              <td>Hazardous energy remains a serious servicing hazard when equipment is not isolated (Brazile, n.d.-a, n.d.-b)</td>
+              <td>Mechanics worked under buses, used heavy tools, and performed roadside repairs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Ergonomic Strain Is a Central Hazard</h3>
+
+      <p>The strongest pattern linking national data and site observations was ergonomics. At the site, drivers described hip and back discomfort associated with prolonged driving. Drivers were reported to spend about five to six hours per day driving, usually split across morning and afternoon routes. Even when the work is not physically intense in the traditional sense, long periods of static sitting can create cumulative loading on the back and hips.</p>
+
+      <p>That observation aligns with ergonomic guidance. OSHA notes that awkward postures and repetitive tasks are recognized MSD risk factors, and course materials identify static posture as a key ergonomic concern (OSHA, n.d.-a; Schwatka, 2024b, 2024c). From a prevention standpoint, seat design, adjustability, vibration reduction, and movement opportunities should be treated as safety controls, not comfort upgrades.</p>
+
+      <p>Mechanics faced a different type of ergonomic exposure. During maintenance, they often worked under raised buses and reached overhead to access components. Sustained overhead reaching, awkward neck and shoulder posture, and forceful exertion can increase the risk of shoulder strain, upper back fatigue, and cumulative trauma. NIOSH guidance emphasizes reducing work outside the "power zone" and redesigning tasks so workers can avoid sustained awkward postures where possible (NIOSH, 2007a, 2007b).</p>
+
+      <h3>Safety Hazards: Winter Conditions &amp; Chemical Exposure</h3>
+
+      <p>Although MSDs stand out, traditional safety hazards were also evident during the site visit. Winter conditions created a clear slip, trip, and falls risk. Drivers and other employees walked between parked buses, around inspection areas, and across outdoor access paths that could be covered in snow or ice. OSHA requires walking-working surfaces to be kept clean and, to the extent feasible, dry and free of hazards such as snow and ice (OSHA, 2023a).</p>
+
+      <p>Chemical exposure was another concern in the maintenance setting. Mechanics handled oils, lubricants, and maintenance products, and inconsistent glove use was observed. OSHA's Hazard Communication standard and hand protection requirements are relevant because workers need access to safety data, training, and task-appropriate gloves when handling products that may irritate the skin (OSHA, 2023b, 2023c).</p>
+
+      <h3>Maintenance Work Adds a Lockout/Tagout Concern</h3>
+
+      <p>Bus maintenance is not just an ergonomic issue—it can also be a hazardous energy issue. When mechanics service buses, work under raised equipment, or address components with stored or residual energy, the risk is no longer just strain or awkward posture. It can become unexpected startup, movement, or energy release.</p>
+
+      <p>OSHA's lockout/tagout standard requires documented procedures for shutting down, isolating, and securing equipment, applying devices, dissipating stored energy, and verifying isolation before work begins (Brazile, n.d.-b). Training is required for affected and authorized employees, and periodic program evaluation must occur at least annually (Brazile, n.d.-a).</p>
+
+      <h3>What Practical Solutions Should Safety Teams Prioritize?</h3>
+
+      <p>For drivers: improve seat adjustability and lumbar support, incorporate vibration-dampening features, provide training on seat and mirror setup, and build in short movement strategies between runs.</p>
+
+      <p>For mechanics: use adjustable platforms and lift-assist devices, reduce overhead work duration, require two-person support for high-force tasks, and improve positioning of components.</p>
+
+      <p>For winter exposure, departments should formalize snow and ice response rather than relying on informal practices. That includes assigning inspections before morning operations, documenting treatment of high-traffic paths, and requiring footwear appropriate for winter walking conditions.</p>
+
+      <h3>Why This Matters</h3>
+
+      <p>School transportation is a good example of why OHS work needs both data and context. National data shows that this industry has a higher injury rate than the all-industry average and that MSDs are a dominant injury category. The site visit showed how those numbers become real: hours of seated driving, overhead maintenance tasks, heavy roadside repairs, winter walking hazards, and servicing work that may involve hazardous energy.</p>
+
+      <div class="blog-cta">
+        School transportation keeps communities running every day. How are safety teams in your organization identifying the risks that have started to feel "normal," and what would it take to address them before they become the next injury?
+      </div>
+
+      <div class="references-toggle">
+        <button class="ref-btn" onclick="document.getElementById('blog-refs').classList.toggle('open'); this.textContent = document.getElementById('blog-refs').classList.contains('open') ? '▲ Hide References' : '▼ Show References'">▼ Show References</button>
+        <div class="ref-list" id="blog-refs">
+          <p>Brazile, W. J. (n.d.-a). <em>Lockout/tagout II</em> [Lecture slides].</p>
+          <p>Brazile, W. J. (n.d.-b). <em>Lockout/tagout I</em> [Lecture slides].</p>
+          <p>Bureau of Labor Statistics. (2023). <em>Occupational employment and wage statistics: Bus drivers, school (SOC 53-3051).</em> https://www.bls.gov/oes/2023/may/oes533051.htm</p>
+          <p>Bureau of Labor Statistics. (2024a). <em>Incidence rates of nonfatal occupational injuries and illnesses by industry and case types: Table 1.</em> https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2024-national.htm</p>
+          <p>Bureau of Labor Statistics. (2024b). <em>Case and demographic characteristics for work-related injuries and illnesses involving days away from work: Table R9.</em></p>
+          <p>Bureau of Labor Statistics. (2024c). <em>Labor force statistics from the current population survey: Table 11 and Table 11B.</em> https://www.bls.gov/cps/</p>
+          <p>Bureau of Labor Statistics. (2024d). <em>Census of fatal occupational injuries summary: Colorado.</em></p>
+          <p>Humantech. (n.d.). <em>BRIEF survey: Baseline risk identification of ergonomic factors.</em></p>
+          <p>National Institute for Occupational Safety and Health. (2007). <em>Ergonomic guidelines for manual material handling.</em> https://www.cdc.gov/niosh/docs/2007-131/</p>
+          <p>Occupational Safety and Health Administration. (2023a). <em>Walking-working surfaces (29 CFR 1910.22).</em> https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.22</p>
+          <p>Occupational Safety and Health Administration. (2023b). <em>Hazard communication (29 CFR 1910.1200).</em> https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.1200</p>
+          <p>Occupational Safety and Health Administration. (2023c). <em>Hand protection (29 CFR 1910.138).</em> https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.138</p>
+          <p>Occupational Safety and Health Administration. (n.d.-a). <em>Ergonomics.</em> https://www.osha.gov/ergonomics</p>
+          <p>Schwatka, N. (2024b). <em>Manual material handling</em> [Lecture slides]. Colorado School of Public Health.</p>
+          <p>Schwatka, N. (2024c). <em>Office ergonomics</em> [Lecture slides]. Colorado School of Public Health.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yellow-accent-bar"></div>
+
+<!-- INDUSTRY FACTS -->
+<section id="industry">
+  <div class="section-inner">
+    <p class="section-label" style="color:rgba(249,192,17,0.6)">Industry Overview</p>
+    <h2 class="section-title light">School Transportation<br>by the Numbers</h2>
+    <div class="divider"></div>
+    <p class="industry-intro">School transportation involves bus drivers, mechanics, and support staff responsible for safely transporting students and maintaining fleet operations. Daily work includes driving, inspections, fueling, maintenance, and working outdoors in varying weather conditions. Transportation-related occupations experience higher-than-average injury rates compared to many industries.</p>
+
+    <div class="industry-grid">
+      <div class="stat-card">
+        <div class="stat-number">3.3</div>
+        <div class="stat-label">Cases per 100 workers</div>
+        <div class="stat-desc">Total recordable injury and illness rate in school bus transportation — higher than the 2.6 all-industry average (BLS, 2024a).</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">371K+</div>
+        <div class="stat-label">School bus drivers (2023)</div>
+        <div class="stat-desc">Approximately 371,530 school bus drivers employed in the U.S., with a mean annual wage of $45,210 (BLS, 2023).</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">600</div>
+        <div class="stat-label">MSD cases (days away from work)</div>
+        <div class="stat-desc">Of 1,660 days-away-from-work cases among school bus drivers, 600 involved musculoskeletal disorders — the leading injury category (BLS, 2024b).</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">#1</div>
+        <div class="stat-label">Injury category: MSDs</div>
+        <div class="stat-desc">Musculoskeletal disorders including sprains, strains, and tears are the dominant cause of lost work days in this occupation.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">36</div>
+        <div class="stat-label">Transportation fatalities, CO 2024</div>
+        <div class="stat-desc">Transportation incidents accounted for 36 of 109 occupational fatalities in Colorado in 2024 (BLS, 2024d).</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5–6 hrs</div>
+        <div class="stat-label">Daily driving time</div>
+        <div class="stat-desc">Drivers typically spend 5–6 hours per day behind the wheel, split across morning and afternoon routes, creating cumulative ergonomic strain.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yellow-accent-bar"></div>
+
+<!-- HEALTH HAZARDS -->
+<section id="hazards">
+  <div class="section-inner">
+    <p class="section-label">Safety &amp; Ergonomic Hazards</p>
+    <h2 class="section-title">Understanding Risks in<br>Daily Transportation Tasks</h2>
+    <div class="divider"></div>
+
+    <div class="hazard-tabs">
+      <button class="hazard-tab active" onclick="switchTab(event,'safety')">🧊 Safety Hazards</button>
+      <button class="hazard-tab" onclick="switchTab(event,'ergonomic')">🪑 Ergonomic Hazards</button>
+      <button class="hazard-tab" onclick="switchTab(event,'outcomes')">🏥 Health Outcomes</button>
+    </div>
+
+    <div id="panel-safety" class="hazard-panel active">
+      <div class="hazard-grid">
+        <div class="hazard-card">
+          <div class="hazard-icon">🧊</div>
+          <div class="hazard-card-title">Slips, Trips &amp; Falls</div>
+          <div class="hazard-card-text">Snow and ice create hazardous walking surfaces in bus yards, parking areas, and maintenance spaces — especially during pre-trip inspections and bus access.</div>
+        </div>
+        <div class="hazard-card red-top">
+          <div class="hazard-icon">🧪</div>
+          <div class="hazard-card-title">Chemical Exposure</div>
+          <div class="hazard-card-text">Mechanics handle oils, fuels, and maintenance fluids in garage settings. Dermal exposure from inconsistent glove use is a primary concern under OSHA's Hazard Communication standard.</div>
+        </div>
+        <div class="hazard-card navy-top">
+          <div class="hazard-icon">🔒</div>
+          <div class="hazard-card-title">Hazardous Energy (LOTO)</div>
+          <div class="hazard-card-text">Servicing buses without proper lockout/tagout procedures risks unexpected energy release. Mechanics working under raised equipment need documented isolation and verification procedures.</div>
+        </div>
+        <div class="hazard-card">
+          <div class="hazard-icon">🚧</div>
+          <div class="hazard-card-title">Elevated Maintenance Risks</div>
+          <div class="hazard-card-text">Fall hazards during elevated maintenance tasks in the garage, including overhead lighting changes and roof access, require stable platforms or lifts with guardrails.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-ergonomic" class="hazard-panel">
+      <div class="hazard-grid">
+        <div class="hazard-card">
+          <div class="hazard-icon">🚌</div>
+          <div class="hazard-card-title">Prolonged Sitting &amp; Vibration</div>
+          <div class="hazard-card-text">Drivers spend 5–6 hours daily in static seated postures combined with whole-body vibration, contributing to hip, back, and musculoskeletal discomfort over time.</div>
+        </div>
+        <div class="hazard-card red-top">
+          <div class="hazard-icon">🔧</div>
+          <div class="hazard-card-title">Awkward Postures</div>
+          <div class="hazard-card-text">Mechanics frequently work in overhead reaching positions, under buses, and in sustained awkward neck and shoulder postures during maintenance — key MSD risk factors per NIOSH guidance.</div>
+        </div>
+        <div class="hazard-card navy-top">
+          <div class="hazard-icon">🏋️</div>
+          <div class="hazard-card-title">Forceful Exertion</div>
+          <div class="hazard-card-text">Roadside repairs, tire handling, and manual material handling combine forceful exertion with awkward access and limited equipment, creating high-risk exposures even if intermittent.</div>
+        </div>
+        <div class="hazard-card">
+          <div class="hazard-icon">🔄</div>
+          <div class="hazard-card-title">Repetitive Motion</div>
+          <div class="hazard-card-text">Repeated control use, inspection tasks, and consistent physical movements across daily routes contribute to cumulative musculoskeletal loading across multiple body regions.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="panel-outcomes" class="hazard-panel">
+      <div class="hazard-grid">
+        <div class="hazard-card">
+          <div class="hazard-icon">🦴</div>
+          <div class="hazard-card-title">Sprains, Strains &amp; Fractures</div>
+          <div class="hazard-card-text">The most common injuries in this industry, resulting from slip/fall incidents, forceful exertion, and cumulative ergonomic strain. MSDs are the leading cause of days away from work.</div>
+        </div>
+        <div class="hazard-card red-top">
+          <div class="hazard-icon">😓</div>
+          <div class="hazard-card-title">Fatigue &amp; Discomfort</div>
+          <div class="hazard-card-text">Ergonomic strain contributes to fatigue, discomfort, and reduced physical recovery — particularly for second-career workers where cumulative musculoskeletal effects may vary with age.</div>
+        </div>
+        <div class="hazard-card navy-top">
+          <div class="hazard-icon">🏥</div>
+          <div class="hazard-card-title">Long-Term Health Effects</div>
+          <div class="hazard-card-text">Prolonged exposure to MSD risk factors and chemical agents can lead to chronic musculoskeletal disorders and skin conditions that develop gradually and may go undetected without systematic assessment.</div>
+        </div>
+        <div class="hazard-card">
+          <div class="hazard-icon">📅</div>
+          <div class="hazard-card-title">Lost Work Time</div>
+          <div class="hazard-card-text">Injuries result in lost work time, reduced productivity, and disruptions to daily transportation operations. Even brief incidents — a slip in the bus yard — can result in days or weeks away from work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="yellow-accent-bar"></div>
+
+<!-- TOOLKIT RESOURCES -->
+<section id="toolkit">
+  <div class="section-inner">
+    <p class="section-label">Workplace Safety Tools</p>
+    <h2 class="section-title">Toolkit Resources</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">Use the following resources to engage management and workers in occupational safety and ergonomics.</p>
+
+    <div class="toolkit-grid">
+
+      <!-- Fact Sheet -->
+      <div class="toolkit-item">
+        <div class="toolkit-item-top">
+          <span class="toolkit-emoji">📄</span>
+          <div>
+            <div class="toolkit-item-title">Safety &amp; Ergonomics Fact Sheet</div>
+            <div class="toolkit-tag">PDF Resource</div>
+          </div>
+        </div>
+        <p class="toolkit-desc">Learn about key hazards in school transportation and practical strategies to protect worker health — covering safety controls, ergonomic interventions, and PPE guidance for leaders.</p>
+        <button class="toolkit-btn" onclick="togglePreview('factsheet-content')">👁 Preview</button>
+        <div class="factsheet-preview" id="factsheet-content">
+          <h4>Hidden Risks in School Transportation</h4>
+          <p><strong>Safety Hazards:</strong> Slips/trips/falls on icy walking surfaces · Chemical exposure to oils and fluids · Fall hazards during elevated maintenance work</p>
+          <p><strong>Ergonomic Hazards:</strong> Prolonged sitting and whole-body vibration · Overhead reaching and awkward postures · Forceful exertion during roadside service</p>
+          <p><strong>What Leaders Can Do:</strong> Engineering controls (better drainage, adjustable seating, lift-assist devices) · Administrative controls (winter response plans, task rotation, team-based approaches for high-force tasks) · Appropriate PPE as a layered last line of defense.</p>
+          <p style="font-size:0.78rem;color:#888;margin-top:0.5rem;">Sources: Bureau of Labor Statistics (2023, 2024); OSHA standards (1910.22, 1910.1200, 1910.138, 1910.140); NIOSH (2007); course materials.</p>
+        </div>
+      </div>
+
+      <!-- LinkedIn Post -->
+      <div class="toolkit-item">
+        <div class="toolkit-item-top">
+          <span class="toolkit-emoji">💼</span>
+          <div>
+            <div class="toolkit-item-title">LinkedIn Awareness Post</div>
+            <div class="toolkit-tag">Social Media Content</div>
+          </div>
+        </div>
+        <p class="toolkit-desc">A short awareness post and visual designed to highlight winter slip hazards and promote safe work practices for school transportation workers.</p>
+        <button class="toolkit-btn" onclick="togglePreview('linkedin-content')">👁 Preview Post</button>
+        <div class="linkedin-preview" id="linkedin-content">
+          <div class="linkedin-preview-header">🔗 LinkedIn Post — Winter Slip Safety</div>
+          <p><strong>A quick walk between buses can lead to a serious injury in winter conditions.</strong></p>
+          <p>During cold weather, snow and ice can turn routine tasks, like walking through a bus yard or climbing steps, into slip and fall hazards.</p>
+          <p>These incidents can result in sprains, fractures, and lost work time, even when the task only takes a few seconds.</p>
+          <p>The reality is that many of these risks are part of everyday work, which makes them easy to overlook.</p>
+          <p>Employers can reduce risk by maintaining clear walking surfaces, reinforcing safe practices, and ensuring workers have proper footwear for winter conditions.</p>
+          <p>A strong safety culture starts with recognizing that routine tasks can carry hidden risks.</p>
+          <p><em>What steps does your team take to prevent slips, trips, and falls during winter conditions? Share in the comments.</em></p>
+          <p class="linkedin-hashtags">#WorkplaceSafety #Ergonomics #OccupationalHealth</p>
+        </div>
+      </div>
+
+      <!-- Toolbox Talk -->
+      <div class="toolkit-item">
+        <div class="toolkit-item-top">
+          <span class="toolkit-emoji">🗣️</span>
+          <div>
+            <div class="toolkit-item-title">Winter Safety Toolbox Talk</div>
+            <div class="toolkit-tag">Group Huddle Activity</div>
+          </div>
+        </div>
+        <p class="toolkit-desc">A 5–10 minute supervisor-led discussion tool to help teams recognize slip hazards, share experiences, and commit to safe work practices before winter shifts begin.</p>
+        <button class="toolkit-btn" onclick="togglePreview('toolbox-content')">👁 Preview Huddle</button>
+        <div class="toolbox-preview" id="toolbox-content">
+          <h4>Winter Safety Toolbox Talk — Slips, Trips, and Falls</h4>
+          <p style="color:rgba(255,255,255,0.7);margin-bottom:0.75rem;font-style:italic;">Bob's Story: Bob arrived early on a cold winter morning for his pre-trip inspection. The bus yard had been plowed, but a thin layer of ice remained between the buses. His foot slipped and he fell, landing on his wrist — missing several days of work. A routine task made dangerous by conditions he couldn't see.</p>
+          <p style="color:var(--bus-yellow);font-size:0.8rem;font-weight:700;margin-bottom:0.4rem;">Discussion Questions:</p>
+          <ul>
+            <li>What caused this incident?</li>
+            <li>What made this hazard easy to miss?</li>
+            <li>Where do we see similar conditions in our work area?</li>
+            <li>What could have been done to prevent this?</li>
+          </ul>
+          <p style="color:var(--bus-yellow);font-size:0.8rem;font-weight:700;margin:0.75rem 0 0.4rem;">Prevention Reminders:</p>
+          <ul>
+            <li>Keep walkways clear · Apply salt before work begins</li>
+            <li>Walk slowly and keep hands free for balance</li>
+            <li>Use handrails when entering and exiting buses</li>
+            <li>Wear slip-resistant footwear · Report icy areas immediately</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="yellow-accent-bar"></div>
+
+<!-- REFERENCES -->
+<section id="references">
+  <div class="section-inner">
+    <p class="section-label" style="color:rgba(249,192,17,0.6)">References</p>
+    <h2 class="section-title light">Full References</h2>
+    <div class="divider"></div>
+    <div class="ref-full-list">
+      <p>Brazile, W. J. (n.d.-a). <em>Lockout/tagout II</em> [Lecture slides].</p>
+      <p>Brazile, W. J. (n.d.-b). <em>Lockout/tagout I</em> [Lecture slides].</p>
+      <p>Bureau of Labor Statistics. (2023). <em>Occupational employment and wage statistics: Bus drivers, school (SOC 53-3051).</em> https://www.bls.gov/oes/2023/may/oes533051.htm</p>
+      <p>Bureau of Labor Statistics. (2024a). <em>Incidence rates of nonfatal occupational injuries and illnesses by industry and case types: Table 1.</em> https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2024-national.htm</p>
+      <p>Bureau of Labor Statistics. (2024b). <em>Case and demographic characteristics for work-related injuries and illnesses involving days away from work: Table R9.</em> https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/case-and-demographic-characteristics-table-r9-2023-2024.xlsx</p>
+      <p>Bureau of Labor Statistics. (2024c). <em>Labor force statistics from the current population survey: Table 11 and Table 11B.</em> https://www.bls.gov/cps/</p>
+      <p>Bureau of Labor Statistics. (2024d). <em>Census of fatal occupational injuries summary: Colorado.</em> https://www.bls.gov/iif/state-data/fatal-occupational-injuries-in-colorado-2024.htm</p>
+      <p>Humantech. (n.d.). <em>BRIEF survey: Baseline risk identification of ergonomic factors.</em></p>
+      <p>National Institute for Occupational Safety and Health. (2007). <em>Ergonomic guidelines for manual material handling.</em> U.S. Department of Health and Human Services, Centers for Disease Control and Prevention. https://www.cdc.gov/niosh/docs/2007-131/</p>
+      <p>Occupational Safety and Health Administration. (2023a). <em>Walking-working surfaces (29 CFR 1910.22).</em> https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.22</p>
+      <p>Occupational Safety and Health Administration. (2023b). <em>Hazard communication (29 CFR 1910.1200).</em> https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.1200</p>
+      <p>Occupational Safety and Health Administration. (2023c). <em>Hand protection (29 CFR 1910.138).</em> https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.138</p>
+      <p>Occupational Safety and Health Administration. (n.d.-a). <em>Ergonomics.</em> https://www.osha.gov/ergonomics</p>
+      <p>Schwatka, N. (2024b). <em>Manual material handling</em> [Lecture slides]. Colorado School of Public Health.</p>
+      <p>Schwatka, N. (2024c). <em>Office ergonomics</em> [Lecture slides]. Colorado School of Public Health.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Lucas Medsker · Occupational Safety &amp; Ergonomics Toolkit · <span>School Transportation Industry</span></p>
+  <p style="margin-top:0.4rem;">Built as an academic resource for occupational health and safety professionals.</p>
+</footer>
+
+<script>
+  function switchTab(event, panel) {
+    document.querySelectorAll('.hazard-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.hazard-panel').forEach(p => p.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('panel-' + panel).classList.add('active');
+  }
+
+  function togglePreview(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
